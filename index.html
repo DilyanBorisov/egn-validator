@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>EGN Validator</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <h1>EGN Validator</h1>
+    <form>
+        <input id="inputEGN" type="number" placeholder="Enter EGN here" minlength=10>
+        <button id="button1">Validate</button>
+    </form>
+
+    <div class="Results">
+        <div id="Valid"></div>
+        <div id="BirthDate"></div>
+        <div id="Sex"></div>
+    </div>
+
+    <script type="text/javascript">
+        document.getElementById("button1").addEventListener("click", function (event) {
+            event.preventDefault()
+            let EGN = document.getElementById("inputEGN").value;
+            let OutputValid
+            let OutputSex
+            let BirthDay
+            let BirthMonth
+            let BirthYear
+            let FullDate
+
+            let ArrayStringEGN = String(EGN).split("");
+            let CoefficientsSum =
+                Number(ArrayStringEGN[0]) * 2 +
+                Number(ArrayStringEGN[1]) * 4 +
+                Number(ArrayStringEGN[2]) * 8 +
+                Number(ArrayStringEGN[3]) * 5 +
+                Number(ArrayStringEGN[4]) * 10 +
+                Number(ArrayStringEGN[5]) * 9 +
+                Number(ArrayStringEGN[6]) * 7 +
+                Number(ArrayStringEGN[7]) * 3 +
+                Number(ArrayStringEGN[8]) * 6;
+
+            let Remainder11 = CoefficientsSum % 11;
+            let Remainder10 = Remainder11 % 10;
+
+            if (Number(ArrayStringEGN[8]) % 2 == 0) {
+                OutputSex = 'M'
+            } else {
+                OutputSex = 'F'
+            }
+
+            BirthDay = String(EGN).slice(4, 6)
+            BirthMonth = String(EGN).slice(2, 4)
+            BirthYear = "19" + String(EGN).slice(0, 2)
+
+            if (BirthMonth > 12) {
+                BirthYear = "20" + String(EGN).slice(0, 2)
+                BirthMonth = ArrayStringEGN[2] - 4 + "" + ArrayStringEGN[3]
+            }
+
+            if (EGN.length = "10" && Number(ArrayStringEGN[9]) == Remainder10 &&
+                BirthDay < 32 &&
+                BirthMonth < 13) {
+                OutputValid = "TRUE"
+                FullDate = BirthYear + "-" + BirthMonth + "-" + BirthDay
+            } else {
+                OutputValid = "FALSE"
+                FullDate = ""
+                OutputSex = ""
+            }
+
+            document.getElementById("Valid").innerHTML = OutputValid;
+            document.getElementById("BirthDate").innerHTML = FullDate;
+            document.getElementById("Sex").innerHTML = OutputSex;
+        });
+    </script>
+</body>
+
+</html>

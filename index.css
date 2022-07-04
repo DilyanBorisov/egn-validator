@@ -1,0 +1,25 @@
+body {
+    text-align: center;
+}
+
+h1 {
+    color: crimson;
+}
+
+div {
+    padding: 5px;
+    font-weight: bold;
+    color: navy
+}
+
+form {
+    background-color: olivedrab;
+    display: inline-block;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 15px;
+}
+
+::placeholder {
+    font-style: italic;
+}
